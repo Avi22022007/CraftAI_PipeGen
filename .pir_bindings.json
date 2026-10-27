@@ -1,0 +1,38 @@
+{
+  "graph_sha256": "8434cfd47df481867cdd2e5c9bb3d57fd1e4ed28ffa567b9bb207e2bd49f074f",
+  "bindings": {
+    "inputs": [],
+    "outputs": [
+      {
+        "node_ids": [
+          7
+        ],
+        "output_id": "out1"
+      },
+      {
+        "node_ids": [
+          8
+        ],
+        "output_id": "out2"
+      },
+      {
+        "node_ids": [
+          9
+        ],
+        "output_id": "out3"
+      }
+    ],
+    "tasks": [
+      {
+        "node_ids": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "task_id": "person detection@input1"
+      }
+    ]
+  }
+}

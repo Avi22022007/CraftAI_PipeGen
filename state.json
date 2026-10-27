@@ -1,0 +1,2344 @@
+{
+  "Req": {
+    "enabled": true,
+    "completed": true,
+    "started_at": 1792302119.738775,
+    "chat_history": [
+      {
+        "agent": "",
+        "user": "Detect people in a video file and publish an alert when a person enters a defined hazard zone. Output a JSON log with timestamp, person ID and zone ID, and publish the same event over MQTT."
+      },
+      {
+        "agent": "I understood that you want to detect and track people in one video file, then log and publish an event when a tracked person enters a configured hazard zone. The event should include a timestamp, person ID, and zone ID, and be sent to both a JSON log and MQTT.\n\nCheck the inputs below and confirm them.\n\nNo method kept on person tracking: a tracker's method is recorded only when you name one.",
+        "user": "Inputs: input1 \u00b7 video file \u00b7 Video file \u00b7 test.mp4",
+        "req_form": {
+          "form": {
+            "count": {
+              "known": true,
+              "label": "How many inputs will the pipeline read?",
+              "max": 16,
+              "min": 1,
+              "value": 1
+            },
+            "error": "",
+            "errors": {},
+            "id": "inputs-1",
+            "items": [
+              {
+                "fields": [],
+                "id": "input1",
+                "kind": "video file",
+                "probe": "",
+                "role": "video file",
+                "tasks": [
+                  "person detection"
+                ],
+                "values": {}
+              }
+            ],
+            "kind": "inputs",
+            "kinds": [
+              {
+                "description": "A recorded video on this machine",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "Videos (*.avi *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg *.ts *.webm)",
+                    "help": "",
+                    "key": "url",
+                    "label": "Video file",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "",
+                    "required": true,
+                    "step": null,
+                    "type": "file",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "video",
+                "label": "Video file",
+                "value": "video file"
+              },
+              {
+                "description": "A recorded image on this machine",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "Images (*.jpg *.jpeg *.png *.bmp)",
+                    "help": "",
+                    "key": "url",
+                    "label": "Image file",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "",
+                    "required": true,
+                    "step": null,
+                    "type": "file",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "image",
+                "label": "Image file",
+                "value": "image file"
+              },
+              {
+                "description": "A folder of images on this machine",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "",
+                    "help": "",
+                    "key": "url",
+                    "label": "Folder",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "",
+                    "required": true,
+                    "step": null,
+                    "type": "folder",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "folder",
+                "label": "Image folder",
+                "value": "image folder"
+              },
+              {
+                "description": "A network stream (rtsp://)",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "",
+                    "help": "",
+                    "key": "url",
+                    "label": "Stream address",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "rtsp://host:port/path",
+                    "required": true,
+                    "step": null,
+                    "type": "url",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "stream",
+                "label": "RTSP",
+                "value": "rtsp"
+              },
+              {
+                "description": "A camera connected to this machine",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "",
+                    "help": "",
+                    "key": "url",
+                    "label": "Device",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "/dev/video0",
+                    "required": true,
+                    "step": null,
+                    "type": "device",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "camera",
+                "label": "USB camera",
+                "value": "usb camera"
+              },
+              {
+                "description": "A camera connected to this machine",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "",
+                    "help": "",
+                    "key": "url",
+                    "label": "Device",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "/dev/video0",
+                    "required": true,
+                    "step": null,
+                    "type": "device",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "camera",
+                "label": "CSI camera",
+                "value": "csi camera"
+              },
+              {
+                "description": "A depth camera streaming depth, frames, motion",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": [
+                      "frames"
+                    ],
+                    "filter": "",
+                    "help": "",
+                    "key": "data_kind",
+                    "label": "Streams",
+                    "max": null,
+                    "min": null,
+                    "options": [
+                      {
+                        "label": "depth",
+                        "value": "depth"
+                      },
+                      {
+                        "label": "frames",
+                        "value": "frames"
+                      },
+                      {
+                        "label": "motion",
+                        "value": "motion"
+                      }
+                    ],
+                    "placeholder": "",
+                    "required": true,
+                    "step": null,
+                    "type": "multi",
+                    "unit": "",
+                    "value": null
+                  },
+                  {
+                    "allow_other": false,
+                    "default": "realsense://0",
+                    "filter": "",
+                    "help": "",
+                    "key": "url",
+                    "label": "Device",
+                    "max": null,
+                    "min": null,
+                    "options": [
+                      {
+                        "label": "realsense://0",
+                        "value": "realsense://0"
+                      }
+                    ],
+                    "placeholder": "",
+                    "required": false,
+                    "step": null,
+                    "type": "device",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "sensor",
+                "label": "RealSense",
+                "value": "realsense"
+              },
+              {
+                "description": "Another kind of source; say what it emits",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "",
+                    "help": "",
+                    "key": "description",
+                    "label": "What it is",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "",
+                    "required": true,
+                    "step": null,
+                    "type": "text",
+                    "unit": "",
+                    "value": null
+                  },
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "",
+                    "help": "",
+                    "key": "data_kind",
+                    "label": "Data it emits",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "frames",
+                    "required": true,
+                    "step": null,
+                    "type": "text",
+                    "unit": "",
+                    "value": null
+                  },
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "",
+                    "help": "",
+                    "key": "url",
+                    "label": "Where it is read from",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "a file path, or scheme://host/path",
+                    "required": true,
+                    "step": null,
+                    "type": "text",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "other",
+                "label": "Other",
+                "value": "other"
+              }
+            ],
+            "notes": [
+              "Person tracking follows person detection",
+              "Hazard-zone entry alert follows person tracking"
+            ],
+            "secondary_label": "",
+            "step": {
+              "index": 2,
+              "label": "Inputs",
+              "of": 9
+            },
+            "submit_label": "Confirm inputs",
+            "subtitle": "Prefilled from your description. Check and confirm.",
+            "tasks": [
+              {
+                "id": "person detection",
+                "label": "Person detection"
+              }
+            ],
+            "title": "Inputs"
+          },
+          "values": {
+            "count": 1,
+            "items": [
+              {
+                "id": "input1",
+                "kind": "video file",
+                "role": "video file",
+                "tasks": [
+                  "person detection"
+                ],
+                "values": {
+                  "url": "/home/mageshkumar_sankar/videos/test.mp4"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "agent": "Inputs confirmed: 1.\n\nCheck where the results go and confirm.",
+        "user": "Outputs (3):\nout1 \u00b7 Metadata file\nout2 \u00b7 MQTT \u00b7 localhost:1883 \u00b7 Topic hazard/alerts\nout3 \u00b7 Live display",
+        "req_form": {
+          "form": {
+            "count": {
+              "known": true,
+              "label": "How many outputs?",
+              "max": 8,
+              "min": 1,
+              "value": 2
+            },
+            "error": "",
+            "errors": {},
+            "id": "outputs-2",
+            "items": [
+              {
+                "fields": [],
+                "id": "out1",
+                "inputs": [
+                  "input1"
+                ],
+                "kind": "metadata_file",
+                "values": {
+                  "url": "/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json"
+                }
+              },
+              {
+                "fields": [],
+                "id": "out2",
+                "inputs": [
+                  "input1"
+                ],
+                "kind": "mqtt",
+                "values": {}
+              }
+            ],
+            "kind": "outputs",
+            "kinds": [
+              {
+                "description": "A window on this machine",
+                "fields": [],
+                "icon": "display",
+                "label": "Live display",
+                "value": "live_display"
+              },
+              {
+                "description": "One window, one tile per input",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": "1x1",
+                    "filter": "",
+                    "help": "",
+                    "key": "layout",
+                    "label": "Grid (columns x rows)",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "<cols>x<rows>",
+                    "required": false,
+                    "step": null,
+                    "type": "text",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "grid",
+                "label": "Tiled display",
+                "value": "tile_display"
+              },
+              {
+                "description": "Written to a .mp4 file",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": "/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/output.mp4",
+                    "filter": "Files (*.mp4 *.mkv *.avi *.mov *.webm)",
+                    "help": "",
+                    "key": "url",
+                    "label": "File",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "",
+                    "required": false,
+                    "step": null,
+                    "type": "save",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "video",
+                "label": "Saved video",
+                "value": "saved_video"
+              },
+              {
+                "description": "Annotated frames written to a folder",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": "/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/frames",
+                    "filter": "",
+                    "help": "",
+                    "key": "url",
+                    "label": "Folder",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "",
+                    "required": false,
+                    "step": null,
+                    "type": "folder",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "images",
+                "label": "Saved images",
+                "value": "saved_images"
+              },
+              {
+                "description": "A network stream (rtsp://)",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "",
+                    "help": "",
+                    "key": "url",
+                    "label": "Stream address",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "rtsp://host:port/path",
+                    "required": true,
+                    "step": null,
+                    "type": "url",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "stream",
+                "label": "RTSP stream",
+                "value": "rtsp_stream"
+              },
+              {
+                "description": "Written to a .json file",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": "/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json",
+                    "filter": "Files (*.json *.jsonl *.txt *.csv)",
+                    "help": "",
+                    "key": "url",
+                    "label": "File",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "",
+                    "required": false,
+                    "step": null,
+                    "type": "save",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "file",
+                "label": "Metadata file",
+                "value": "metadata_file"
+              },
+              {
+                "description": "Messages published to a broker",
+                "fields": [
+                  {
+                    "allow_other": false,
+                    "default": null,
+                    "filter": "",
+                    "help": "",
+                    "key": "broker",
+                    "label": "Broker",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "host:port",
+                    "required": true,
+                    "step": null,
+                    "type": "text",
+                    "unit": "",
+                    "value": null
+                  },
+                  {
+                    "allow_other": false,
+                    "default": "",
+                    "filter": "",
+                    "help": "Left empty, one is derived from the pipeline.",
+                    "key": "topic",
+                    "label": "Topic",
+                    "max": null,
+                    "min": null,
+                    "options": [],
+                    "placeholder": "",
+                    "required": false,
+                    "step": null,
+                    "type": "text",
+                    "unit": "",
+                    "value": null
+                  }
+                ],
+                "icon": "message",
+                "label": "MQTT",
+                "value": "mqtt"
+              }
+            ],
+            "notes": [],
+            "secondary_label": "",
+            "step": {
+              "index": 3,
+              "label": "Outputs",
+              "of": 9
+            },
+            "submit_label": "Confirm outputs",
+            "subtitle": "Prefilled from your description. Check and confirm.",
+            "title": "Outputs"
+          },
+          "values": {
+            "count": 3,
+            "items": [
+              {
+                "id": "out1",
+                "inputs": [
+                  "input1"
+                ],
+                "kind": "metadata_file",
+                "values": {
+                  "url": "/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json"
+                }
+              },
+              {
+                "id": "out2",
+                "inputs": [
+                  "input1"
+                ],
+                "kind": "mqtt",
+                "values": {
+                  "broker": "localhost:1883",
+                  "topic": "hazard/alerts"
+                }
+              },
+              {
+                "id": "out3",
+                "inputs": [],
+                "kind": "live_display",
+                "values": {}
+              }
+            ]
+          }
+        }
+      },
+      {
+        "agent": "Outputs confirmed: 3.\n\nA few scene and alert details are still useful to confirm.\n\nA few questions about the scene and camera below: Continue applies what the card shows, Skip adds no step.",
+        "user": "Scene and camera: Does this camera move? Fixed \u00b7 How big are the targets? Not sure \u00b7 Which is worse for alerts? As stated",
+        "req_form": {
+          "form": {
+            "error": "",
+            "errors": {},
+            "id": "scene-3",
+            "kind": "scene",
+            "notes": [],
+            "questions": [
+              {
+                "allow_other": false,
+                "default": null,
+                "filter": "",
+                "help": "The view holds still between frames, so the camera looks fixed. Fixed: allows speed-ups that need a still camera. Pans or moves: rules out background subtraction, motion gating, frame skipping and the simple tracker. Shakes: rules out frame skipping and the simple tracker. Not sure: treated as not fixed, so no speed-up that needs a still camera. \u00b7 catalogue \u00a74 Camera mount \u00b7 Movement",
+                "key": "motion__input1",
+                "label": "Does this camera move?",
+                "max": null,
+                "min": null,
+                "options": [
+                  {
+                    "label": "Fixed",
+                    "value": "fixed"
+                  },
+                  {
+                    "label": "Pans or moves",
+                    "value": "moves"
+                  },
+                  {
+                    "label": "Shakes",
+                    "value": "shakes"
+                  },
+                  {
+                    "label": "Not sure",
+                    "value": "not_sure"
+                  }
+                ],
+                "placeholder": "",
+                "required": true,
+                "step": null,
+                "type": "choice",
+                "unit": "",
+                "value": "fixed"
+              },
+              {
+                "allow_other": false,
+                "default": null,
+                "filter": "",
+                "help": "Small or far: no frame skipping; advice for the Model stage. \u00b7 catalogue \u00a74 Camera mount \u00b7 Distance and scale",
+                "key": "size__input1",
+                "label": "How big are the targets?",
+                "max": null,
+                "min": null,
+                "options": [
+                  {
+                    "label": "Medium or large",
+                    "value": "large"
+                  },
+                  {
+                    "label": "Small or far",
+                    "value": "small"
+                  },
+                  {
+                    "label": "Not sure",
+                    "value": "not_sure"
+                  }
+                ],
+                "placeholder": "",
+                "required": true,
+                "step": null,
+                "type": "choice",
+                "unit": "",
+                "value": "not_sure"
+              },
+              {
+                "allow_other": false,
+                "default": null,
+                "filter": "",
+                "help": "A false alarm: the condition must hold 1 s, then 60 s before the next alert. A missed event: hold 0.2 s, 10 s between alerts. Balanced: hold 0.5 s, 30 s between alerts. As stated: nothing is added, so each alert follows its own details. A preset adds its hold and pause to any rule an alert's details already state. \u00b7 catalogue \u00a77 Decision",
+                "key": "tolerance__input1",
+                "label": "Which is worse for alerts?",
+                "max": null,
+                "min": null,
+                "options": [
+                  {
+                    "label": "A false alarm",
+                    "value": "false_alarm"
+                  },
+                  {
+                    "label": "A missed event",
+                    "value": "miss"
+                  },
+                  {
+                    "label": "Balanced",
+                    "value": "balanced"
+                  },
+                  {
+                    "label": "As stated",
+                    "value": "as_stated"
+                  }
+                ],
+                "placeholder": "",
+                "required": true,
+                "step": null,
+                "type": "choice",
+                "unit": "",
+                "value": "as_stated"
+              }
+            ],
+            "secondary_label": "Skip",
+            "step": {
+              "index": 4,
+              "label": "Scene",
+              "of": 9
+            },
+            "submit_label": "Continue",
+            "subtitle": "What the camera sees decides which fixes run before the model and before pictures are kept or sent.",
+            "title": "Scene and camera"
+          },
+          "values": {
+            "answers": {
+              "motion__input1": "fixed",
+              "size__input1": "not_sure",
+              "tolerance__input1": "as_stated"
+            }
+          }
+        }
+      },
+      {
+        "agent": "Draft v1: **1 input(s)** \u2192 **hazard-zone entry alert, person detection, person tracking** \u2192 **metadata_file, mqtt, live_display**. Correct it here, or press **Finalize flow**.",
+        "user": "finalize the flow",
+        "flow_draft": {
+          "connections": [
+            {
+              "from": "input1",
+              "to": "task:person detection@input1"
+            },
+            {
+              "from": "task:person detection@input1",
+              "to": "task:person tracking@input1"
+            },
+            {
+              "from": "task:person tracking@input1",
+              "to": "task:hazard-zone entry alert@input1"
+            },
+            {
+              "from": "task:hazard-zone entry alert@input1",
+              "to": "out1"
+            },
+            {
+              "from": "task:hazard-zone entry alert@input1",
+              "to": "out2"
+            },
+            {
+              "from": "task:hazard-zone entry alert@input1",
+              "to": "out3"
+            }
+          ],
+          "finalized": false,
+          "nodes": [
+            {
+              "id": "input1",
+              "kind": "input",
+              "name": "input1 \u00b7 video file",
+              "short_description": "video file \u00b7 test.mp4 \u00b7 2116x1080"
+            },
+            {
+              "id": "task:person detection@input1",
+              "kind": "task",
+              "name": "person detection",
+              "short_description": "targets: person \u00b7 Detect people in the video."
+            },
+            {
+              "id": "task:person tracking@input1",
+              "kind": "task",
+              "name": "person tracking",
+              "short_description": "targets: person \u00b7 Assign and maintain a person ID across frames."
+            },
+            {
+              "id": "task:hazard-zone entry alert@input1",
+              "kind": "task",
+              "name": "hazard-zone entry alert",
+              "short_description": "method: Tracked-person hazard-zone entry rule (you said \u201cpublish an alert when a person enters a defined hazard zone\u201d) \u00b7 targets: person \u00b7 Emit an event when a tracked person enters a defined hazard zone. Include timestamp, person ID, and zone ID; publish the same event to the JSON log and MQTT."
+            },
+            {
+              "id": "out1",
+              "kind": "output",
+              "name": "out1 \u00b7 metadata_file",
+              "short_description": "metadata_file \u00b7 url /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json"
+            },
+            {
+              "id": "out2",
+              "kind": "output",
+              "name": "out2 \u00b7 mqtt",
+              "short_description": "mqtt \u00b7 url mqtt://localhost:1883/hazard/alerts"
+            },
+            {
+              "id": "out3",
+              "kind": "output",
+              "name": "out3 \u00b7 live_display",
+              "short_description": "live_display"
+            }
+          ],
+          "version": 1
+        },
+        "actions": [
+          "finalize_flow"
+        ],
+        "flow_step": {
+          "index": 5,
+          "label": "Flow",
+          "of": 9
+        }
+      },
+      {
+        "agent": "Flow locked. Now the details, one task at a time: 3 of 3 to go.\n\nPerson detection is set for the video input, targeting people. No further detection-specific details were provided.\n\n**person detection on input1 (video file)** done. Next: **person tracking on input1 (video file)**.\n\nThe tracking task is to maintain person IDs across video frames. The tracker choice can affect identity continuity, so please choose a method.",
+        "user": "person tracking on input1 (video file): Which tracking method should assign and maintain person IDs? ByteTrack",
+        "task_checklist": {
+          "active": 2,
+          "done": 1,
+          "items": [
+            {
+              "id": 1,
+              "keys": [
+                "person detection@input1"
+              ],
+              "label": "person detection on input1 (video file)",
+              "status": "done",
+              "summary": "Detect people in the video file using a model."
+            },
+            {
+              "id": 2,
+              "keys": [
+                "person tracking@input1"
+              ],
+              "label": "person tracking on input1 (video file)",
+              "status": "active",
+              "summary": ""
+            },
+            {
+              "id": 3,
+              "keys": [
+                "hazard-zone entry alert@input1"
+              ],
+              "label": "hazard-zone entry alert on input1 (video file)",
+              "status": "pending",
+              "summary": ""
+            }
+          ],
+          "of": 3
+        },
+        "req_form": {
+          "form": {
+            "error": "",
+            "errors": {},
+            "id": "task-4",
+            "item": 2,
+            "kind": "task",
+            "notes": [],
+            "questions": [
+              {
+                "allow_other": true,
+                "default": null,
+                "filter": "",
+                "help": "Different trackers can assign different IDs when people overlap, disappear, or reappear. ByteTrack: Maintains tracks using detections, including lower-confidence ones. (catalogue \u00a72 With a task \u00b7 Tracking \u00b7 ByteTrack) \u00b7 SORT: Associates detections using motion prediction and box overlap. (catalogue \u00a72 With a task \u00b7 Tracking \u00b7 SORT) \u00b7 IoU tracker: Associates detections by overlap between consecutive frames. (catalogue \u00a72 With a task \u00b7 Tracking \u00b7 IoU tracker)",
+                "key": "method",
+                "label": "Which tracking method should assign and maintain person IDs?",
+                "max": null,
+                "min": null,
+                "options": [
+                  {
+                    "label": "ByteTrack",
+                    "value": "ByteTrack"
+                  },
+                  {
+                    "label": "SORT",
+                    "value": "SORT"
+                  },
+                  {
+                    "label": "IoU tracker",
+                    "value": "IoU tracker"
+                  }
+                ],
+                "placeholder": "",
+                "required": true,
+                "step": null,
+                "type": "choice",
+                "unit": "",
+                "value": "ByteTrack"
+              }
+            ],
+            "round": 1,
+            "secondary_label": "Keep defaults",
+            "step": {
+              "index": 6,
+              "label": "Task details",
+              "of": 9
+            },
+            "submit_label": "Save details",
+            "subtitle": "Only what still matters for this task. Unanswered optional fields keep their defaults.",
+            "summary": "Track detected people across frames and maintain person IDs; tracking method is not yet chosen.",
+            "task": "person tracking on input1 (video file)",
+            "title": "person tracking on input1 (video file)"
+          },
+          "values": {
+            "answers": {
+              "method": "ByteTrack"
+            }
+          }
+        }
+      },
+      {
+        "agent": "ByteTrack is set to maintain person IDs across frames. No tracking-specific details remain unsettled.\n\n**person tracking on input1 (video file)** done. Next: **hazard-zone entry alert on input1 (video file)**.\n\nThe alert is an outside-to-inside transition for a tracked person. The hazard-zone location is still needed.\n\nKept Tracked-person hazard-zone entry rule as the method of hazard-zone entry alert (you said \u201cpublish an alert when a person enters a defined hazard zone\u201d); say so to change it.",
+        "user": "hazard-zone entry alert on input1 (video file): What exact image region defines the hazard zone? Give polygon vertices as (x,y) pixel coordinates in the 2116\u00d71080 frame, or describe its boundaries precisely. Polygon vertices (x,y) in the 2116x1080 frame, clockwise from bottom-left: (528,792), (752,426), (1673,480), (1707,885). Alert when a tracked person's feet (bottom-center of the bounding box) move from outside to inside this polygon. Include timestamp, person ID and zone ID in the alert, publish it over MQTT and write it to the metadata JSON.",
+        "task_checklist": {
+          "active": 3,
+          "done": 2,
+          "items": [
+            {
+              "id": 1,
+              "keys": [
+                "person detection@input1"
+              ],
+              "label": "person detection on input1 (video file)",
+              "status": "done",
+              "summary": "Detect people in the video file using a model."
+            },
+            {
+              "id": 2,
+              "keys": [
+                "person tracking@input1"
+              ],
+              "label": "person tracking on input1 (video file)",
+              "status": "done",
+              "summary": "Person tracking on input1 uses ByteTrack to maintain person IDs across frames."
+            },
+            {
+              "id": 3,
+              "keys": [
+                "hazard-zone entry alert@input1"
+              ],
+              "label": "hazard-zone entry alert on input1 (video file)",
+              "status": "active",
+              "summary": ""
+            }
+          ],
+          "of": 3
+        },
+        "req_form": {
+          "form": {
+            "error": "",
+            "errors": {},
+            "id": "task-5",
+            "item": 3,
+            "kind": "task",
+            "notes": [],
+            "questions": [
+              {
+                "allow_other": false,
+                "default": null,
+                "filter": "",
+                "help": "The zone\u2019s location determines which tracked-person entries trigger alerts.",
+                "key": "hazard_zone_region",
+                "label": "What exact image region defines the hazard zone? Give polygon vertices as (x,y) pixel coordinates in the 2116\u00d71080 frame, or describe its boundaries precisely.",
+                "max": null,
+                "min": null,
+                "options": [],
+                "placeholder": "",
+                "required": true,
+                "step": null,
+                "type": "text",
+                "unit": "",
+                "value": null
+              }
+            ],
+            "round": 1,
+            "secondary_label": "Keep defaults",
+            "step": {
+              "index": 6,
+              "label": "Task details",
+              "of": 9
+            },
+            "submit_label": "Save details",
+            "subtitle": "Only what still matters for this task. Unanswered optional fields keep their defaults.",
+            "summary": "Hazard-zone alerts fire when a tracked person transitions from outside to inside; the zone region remains unspecified.",
+            "task": "hazard-zone entry alert on input1 (video file)",
+            "title": "hazard-zone entry alert on input1 (video file)"
+          },
+          "values": {
+            "answers": {
+              "hazard_zone_region": "Polygon vertices (x,y) in the 2116x1080 frame, clockwise from bottom-left: (528,792), (752,426), (1673,480), (1707,885). Alert when a tracked person's feet (bottom-center of the bounding box) move from outside to inside this polygon. Include timestamp, person ID and zone ID in the alert, publish it over MQTT and write it to the metadata JSON."
+            }
+          }
+        }
+      },
+      {
+        "agent": "The hazard zone is set to the supplied polygon, with entry determined by the tracked person\u2019s feet point moving from outside to inside. I used `hazard_zone_1` as the zone ID and kept the alert destinations as MQTT and the metadata JSON.\n\nAll tasks are detailed. This is the final flow with your conditions; continue to sources, or change something.\n\nKept the hazard-zone entry alert step's settings as its task has them: they come from its method and details; say what to change.",
+        "user": "continue to sources",
+        "flow_draft": {
+          "connections": [
+            {
+              "from": "input1",
+              "to": "task:person detection@input1"
+            },
+            {
+              "from": "task:person detection@input1",
+              "to": "task:person tracking@input1"
+            },
+            {
+              "from": "task:person tracking@input1",
+              "to": "task:hazard-zone entry alert@input1"
+            },
+            {
+              "from": "task:hazard-zone entry alert@input1",
+              "to": "out1"
+            },
+            {
+              "from": "task:hazard-zone entry alert@input1",
+              "to": "out2"
+            },
+            {
+              "from": "task:hazard-zone entry alert@input1",
+              "to": "out3"
+            }
+          ],
+          "finalized": true,
+          "label": "Final flow \u00b7 with your conditions",
+          "nodes": [
+            {
+              "id": "input1",
+              "kind": "input",
+              "name": "input1 \u00b7 video file",
+              "short_description": "video file \u00b7 test.mp4 \u00b7 2116x1080"
+            },
+            {
+              "id": "task:person detection@input1",
+              "kind": "task",
+              "name": "person detection",
+              "short_description": "targets: person \u00b7 Detect people in the video."
+            },
+            {
+              "id": "task:person tracking@input1",
+              "kind": "task",
+              "name": "person tracking",
+              "short_description": "method: ByteTrack (your choice \u00b7 catalogue \u00a72 With a task \u00b7 Tracking \u00b7 ByteTrack) \u00b7 targets: person \u00b7 Assign and maintain a person ID across frames using ByteTrack."
+            },
+            {
+              "id": "task:hazard-zone entry alert@input1",
+              "kind": "task",
+              "name": "hazard-zone entry alert",
+              "short_description": "method: Tracked-person hazard-zone entry rule (you said \u201cpublish an alert when a person enters a defined hazard zone\u201d) \u00b7 targets: person \u00b7 Emit an event when a tracked person's feet point (bottom-center of the bounding box) moves from outside to inside the hazard-zone polygon. Polygon vertices in the 2116\u00d71080 frame, clockwise from bottom-left: (528,792), (752,426), (1673,480), (1707,885). Include timestamp, person ID, and zone ID hazard_zone_1; publish the same event to MQTT and write it to the metadata JSON."
+            },
+            {
+              "id": "out1",
+              "kind": "output",
+              "name": "out1 \u00b7 metadata_file",
+              "short_description": "metadata_file \u00b7 url /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json"
+            },
+            {
+              "id": "out2",
+              "kind": "output",
+              "name": "out2 \u00b7 mqtt",
+              "short_description": "mqtt \u00b7 url mqtt://localhost:1883/hazard/alerts"
+            },
+            {
+              "id": "out3",
+              "kind": "output",
+              "name": "out3 \u00b7 live_display",
+              "short_description": "live_display"
+            }
+          ],
+          "version": 2
+        },
+        "actions": [
+          "confirm_flow"
+        ],
+        "task_checklist": {
+          "active": null,
+          "done": 3,
+          "items": [
+            {
+              "id": 1,
+              "keys": [
+                "person detection@input1"
+              ],
+              "label": "person detection on input1 (video file)",
+              "status": "done",
+              "summary": "Detect people in the video file using a model."
+            },
+            {
+              "id": 2,
+              "keys": [
+                "person tracking@input1"
+              ],
+              "label": "person tracking on input1 (video file)",
+              "status": "done",
+              "summary": "Person tracking on input1 uses ByteTrack to maintain person IDs across frames."
+            },
+            {
+              "id": 3,
+              "keys": [
+                "hazard-zone entry alert@input1"
+              ],
+              "label": "hazard-zone entry alert on input1 (video file)",
+              "status": "done",
+              "summary": "Alert on tracked-person feet-point outside-to-inside entry into the specified polygon; include timestamp, person ID, and default zone ID hazard_zone_1 in MQTT a"
+            }
+          ],
+          "of": 3
+        },
+        "flow_step": {
+          "index": 5,
+          "label": "Flow",
+          "of": 9
+        }
+      },
+      {
+        "agent": "Code for person detection on input1 (video file): choose a local repository folder or model file, or the catalog, for each task below, or paste a path here.",
+        "user": "person detection on input1 (video file) \u2192 catalog",
+        "req_form": {
+          "form": {
+            "error": "",
+            "errors": {},
+            "groups": [
+              {
+                "choice": "catalog",
+                "field": {
+                  "accept": [
+                    "folder",
+                    "file"
+                  ],
+                  "allow_other": false,
+                  "default": null,
+                  "filter": "Models (*.engine *.onnx *.plan *.pt *.pth *.tflite *.weights)",
+                  "help": "A folder is searched for its models; a model file is used exactly as given.",
+                  "key": "path",
+                  "label": "Repository folder or model file",
+                  "max": null,
+                  "min": null,
+                  "multiple": true,
+                  "options": [],
+                  "placeholder": "/path/to/repository or /path/to/model.onnx",
+                  "required": true,
+                  "step": null,
+                  "type": "path",
+                  "unit": "",
+                  "value": ""
+                },
+                "id": "g1",
+                "keys": [
+                  "person detection@input1"
+                ],
+                "label": "person detection on input1 (video file)",
+                "path": ""
+              }
+            ],
+            "id": "sources-6",
+            "kind": "sources",
+            "model_free": [
+              {
+                "label": "person tracking on input1 (video file)",
+                "reason": "computed from person detection on input1 (video file)"
+              },
+              {
+                "label": "hazard-zone entry alert on input1 (video file)",
+                "reason": "computed from person tracking on input1 (video file)"
+              }
+            ],
+            "notes": [],
+            "precision": {
+              "allow_other": false,
+              "default": "auto",
+              "filter": "",
+              "help": "Used when the model is compiled for this device.",
+              "key": "precision",
+              "label": "Model precision",
+              "max": null,
+              "min": null,
+              "options": [
+                {
+                  "label": "Auto (the compile stage decides)",
+                  "value": "auto"
+                },
+                {
+                  "label": "FP32, full precision reference build",
+                  "value": "fp32"
+                },
+                {
+                  "label": "FP16, half precision; speed and accuracy are measured after the build",
+                  "value": "fp16"
+                },
+                {
+                  "label": "INT8, calibrated on sample frames; speed and accuracy are measured after the build",
+                  "value": "int8"
+                }
+              ],
+              "placeholder": "",
+              "required": false,
+              "step": null,
+              "type": "choice",
+              "unit": "",
+              "value": null
+            },
+            "secondary_label": "",
+            "step": {
+              "index": 7,
+              "label": "Sources",
+              "of": 9
+            },
+            "submit_label": "Continue",
+            "subtitle": "A local repository folder or model file, or ranked suggestions from the catalog, for each task.",
+            "title": "Code sources"
+          },
+          "values": {
+            "groups": [
+              {
+                "choice": "catalog",
+                "id": "g1",
+                "path": ""
+              }
+            ],
+            "path": "",
+            "precision": "auto",
+            "share": false
+          }
+        }
+      },
+      {
+        "agent": "Catalog matches for person detection on input1 (video file). Suggested: **A** covers all 1 task(s). Tick the ones to use, or paste a local path.",
+        "user": "A",
+        "benchmark_options": {
+          "options": [
+            {
+              "id": "A",
+              "label": "RestrictedAreaMonitoring",
+              "description": "Detects and tracks people in video, tests a configured polygon zone, and raises intrusion alerts.",
+              "similarity": 97,
+              "covers": [
+                "person detection@input1"
+              ],
+              "suggested": true
+            },
+            {
+              "id": "B",
+              "label": "LoiteringDetection",
+              "description": "Tracks people in video and evaluates their presence in configured zones, though it alerts on loitering rather than entry.",
+              "similarity": 78,
+              "covers": [
+                "person detection@input1"
+              ],
+              "suggested": false
+            },
+            {
+              "id": "C",
+              "label": "CustomerDwellTime",
+              "description": "Detects and tracks people across video frames and checks their position against a polygon zone.",
+              "similarity": 67,
+              "covers": [
+                "person detection@input1"
+              ],
+              "suggested": false
+            },
+            {
+              "id": "D",
+              "label": "CheckoutMonitoring",
+              "description": "Detects people in video and applies polygon-zone rules, but reports checkout status rather than hazard events.",
+              "similarity": 59,
+              "covers": [
+                "person detection@input1"
+              ],
+              "suggested": false
+            },
+            {
+              "id": "E",
+              "label": "QueueLengthMonitoring",
+              "description": "Counts detected people inside a configurable video zone, but does not publish intrusion alerts.",
+              "similarity": 54,
+              "covers": [
+                "person detection@input1"
+              ],
+              "suggested": false
+            },
+            {
+              "id": "F",
+              "label": "ONNX-YOLOv8-Object-Detection",
+              "description": "Provides general object detection suitable for finding people in video, without tracking or hazard-zone logic.",
+              "similarity": 42,
+              "covers": [
+                "person detection@input1"
+              ],
+              "suggested": false
+            }
+          ],
+          "selected": "A",
+          "disabled": true,
+          "multi": true,
+          "selected_ids": [
+            "A"
+          ],
+          "suggestion": {
+            "ids": [
+              "A"
+            ],
+            "of": 1,
+            "tasks_covered": 1
+          }
+        }
+      },
+      {
+        "agent": "- **src1** \u00b7 RestrictedAreaMonitoring \u2192 person detection on input1 (video file) \u00b7 `application.py` \u00b7 `yolo11s.onnx` (scanned)\n\nAll 14 requirement checks pass.\n\nPress **Generate PIR** to build the pipeline graph. You can still change anything here first.",
+        "checks": {
+          "failed": 0,
+          "groups": [
+            {
+              "failed": 0,
+              "name": "Inputs",
+              "passed": 1,
+              "warned": 0
+            },
+            {
+              "failed": 0,
+              "name": "Tasks",
+              "passed": 4,
+              "warned": 0
+            },
+            {
+              "failed": 0,
+              "name": "Sources",
+              "passed": 4,
+              "warned": 0
+            },
+            {
+              "failed": 0,
+              "name": "Outputs",
+              "passed": 3,
+              "warned": 0
+            },
+            {
+              "failed": 0,
+              "name": "Handoff",
+              "passed": 2,
+              "warned": 0
+            }
+          ],
+          "passed": true,
+          "results": [
+            {
+              "fix": null,
+              "group": "Inputs",
+              "id": "input.input1",
+              "message": "input1: /home/mageshkumar_sankar/videos/test.mp4 (2116x1080 \u00b7 30.0)",
+              "name": "input1 file",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Sources",
+              "id": "classes.src1.person detection@input1",
+              "message": "src1 supports person \u2192 person for person detection@input1.",
+              "name": "person detection@input1 capabilities",
+              "status": "pass"
+            },
+            {
+              "fix": "sources",
+              "group": "Tasks",
+              "id": "tasks.covered",
+              "message": "All tasks are covered.",
+              "name": "every task has a source",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Tasks",
+              "id": "task.1.input",
+              "message": "person detection runs on input1",
+              "name": "person detection input",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Tasks",
+              "id": "task.2.input",
+              "message": "person tracking runs on input1",
+              "name": "person tracking input",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Tasks",
+              "id": "task.3.input",
+              "message": "hazard-zone entry alert runs on input1",
+              "name": "hazard-zone entry alert input",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Sources",
+              "id": "source.src1.root",
+              "message": "src1: /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/src1/RestrictedAreaMonitoring",
+              "name": "src1 folder",
+              "status": "pass"
+            },
+            {
+              "fix": "reanalyse",
+              "group": "Sources",
+              "id": "source.src1.entry",
+              "message": "src1: `python application.py --source /home/mageshkumar_sankar/videos/test.mp4` \u2192 application.py",
+              "name": "src1 run command",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Sources",
+              "id": "source.src1.model.yolo11s.onnx",
+              "message": "src1: yolo11s.onnx reads fine.",
+              "name": "src1 model yolo11s.onnx",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Outputs",
+              "id": "output.out1.destination",
+              "message": "out1: metadata_file \u2192 /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json",
+              "name": "out1 destination",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Outputs",
+              "id": "output.out2.destination",
+              "message": "out2: mqtt \u2192 mqtt://localhost:1883/hazard/alerts",
+              "name": "out2 destination",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Outputs",
+              "id": "output.out3.destination",
+              "message": "out3: live_display on this machine",
+              "name": "out3 destination",
+              "status": "pass"
+            },
+            {
+              "fix": "ask",
+              "group": "Handoff",
+              "id": "contract",
+              "message": "1 task(s), 1 source(s), 1 model(s).",
+              "name": "handoff contract",
+              "status": "pass"
+            },
+            {
+              "fix": null,
+              "group": "Handoff",
+              "id": "pir.readiness",
+              "message": "The PIR stage can start from the captured evidence.",
+              "name": "PIR readiness",
+              "status": "pass"
+            }
+          ],
+          "version": 1,
+          "warned": 0
+        },
+        "source_architectures": [
+          {
+            "architecture": {
+              "connections": [
+                {
+                  "from": "n1",
+                  "to": "n2"
+                },
+                {
+                  "from": "n2",
+                  "to": "n3"
+                },
+                {
+                  "from": "n3",
+                  "to": "n4"
+                },
+                {
+                  "from": "n4",
+                  "to": "n5"
+                },
+                {
+                  "from": "n5",
+                  "to": "n6"
+                }
+              ],
+              "nodes": [
+                {
+                  "id": "n1",
+                  "name": "Video input",
+                  "short_description": "Reads frames from the supplied video file."
+                },
+                {
+                  "id": "n2",
+                  "name": "Frame preprocessing",
+                  "short_description": "Resizes and letterboxes frames to 640\u00d7640, converts to RGB, and normalizes pixel values."
+                },
+                {
+                  "id": "n3",
+                  "name": "YOLO11s ONNX detector",
+                  "short_description": "Produces raw object-box and class-score predictions for each frame."
+                },
+                {
+                  "id": "n4",
+                  "name": "Detection decoding",
+                  "short_description": "Transposes predictions, filters by confidence, applies NMS, and selects person detections."
+                },
+                {
+                  "id": "n5",
+                  "name": "Tracking and zone checks",
+                  "short_description": "Associates detections across frames and evaluates tracked people against the configured zone."
+                },
+                {
+                  "id": "n6",
+                  "name": "Video output",
+                  "short_description": "Renders detection and intrusion status overlays on the processed video."
+                }
+              ]
+            },
+            "command": "python application.py --source /home/mageshkumar_sankar/videos/test.mp4",
+            "covers": [
+              "person detection@input1"
+            ],
+            "id": "src1",
+            "models": [
+              "/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/src1/RestrictedAreaMonitoring/model/yolo11s.onnx"
+            ],
+            "name": "RestrictedAreaMonitoring",
+            "source": "benchmark",
+            "summary": "The repository processes video frames for restricted-area monitoring and person detection. It letterboxes each frame to 640\u00d7640, converts it to RGB, and normalizes it before inference with the COCO-trained YOLO11s ONNX detector. The decoder applies confidence filtering and NMS to produce person bounding boxes. A tracker and zone-membership logic evaluate people across frames, and the script renders status overlays in the video output."
+          }
+        ]
+      },
+      {
+        "agent": "Pipeline IR generated successfully. Review the graph above and either **approve** to continue or describe what to change."
+      },
+      {
+        "agent": "Pipeline IR approved. Proceeding to model compilation."
+      },
+      {
+        "agent": "mAP@0.5 0.4782 against COCO 2017 validation slice (30 samples) ground truth (unchanged vs the ONNX on the same data) \u00b7 30 sample(s)"
+      },
+      {
+        "agent": "Keeping this engine as the one that ships. Moving on to the pipeline compilation."
+      },
+      {
+        "agent": "Pipeline IR updated \u2014 inference node 3 now uses the TensorRT engine: `/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/model_stage/yolo11s.fp32.plan`",
+        "user": "run benchmark FP32"
+      }
+    ],
+    "log_history": [
+      "Understanding your requirement",
+      "Defaulted: out1 written to /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json",
+      "Considered: Recorded one video-file input with frame data; its path was not provided and will be collected on the input card.",
+      "Considered: Person detection needs a model to identify people; tracking and zone-entry alerting use computed results and need no separate model.",
+      "Considered: Recorded the requested JSON event fields and MQTT publication; destinations were not provided and will be collected on the output card.",
+      "Considered: The hazard-zone definition is task configuration, so it is left for the task step rather than guessed here.",
+      "Inputs \u00b7 check and confirm",
+      "Outputs \u00b7 check and confirm",
+      "Looking at the video from input1",
+      "Considered: Footage evidence suggests the camera is fixed, but it is not an established user-stated fact, so ask about camera movement.",
+      "Considered: A person-detection task is present, and target size can affect its results.",
+      "Considered: A live display shows pictures, so ask whether anything should be hidden.",
+      "Considered: The hazard-zone task raises alerts, so ask which alert error is worse.",
+      "Scene and camera \u00b7 3 question(s)",
+      "Flow draft ready for your review",
+      "Flow draft \u00b7 waiting for your corrections or Finalize",
+      "Flow finalised; collecting task details",
+      "Detailing person detection on input1 (video file)",
+      "Detailing person tracking on input1 (video file)",
+      "Task details \u00b7 person tracking on input1 (video file)",
+      "Detailing person tracking on input1 (video file)",
+      "Detailing hazard-zone entry alert on input1 (video file)",
+      "Task details \u00b7 hazard-zone entry alert on input1 (video file)",
+      "Detailing hazard-zone entry alert on input1 (video file)",
+      "Final flow \u00b7 waiting for Continue",
+      "Collecting code sources",
+      "Sources \u00b7 1 task(s) still need code",
+      "Ranking catalog repositories for your tasks",
+      "Sources \u00b7 choose catalog repositories",
+      "Cloning catalog repository RestrictedAreaMonitoring",
+      "Downloading model: download.sh",
+      "Found 1 ONNX model(s)",
+      "Scanning src1: RestrictedAreaMonitoring",
+      "Reading RestrictedAreaMonitoring to configure it for person detection on input1 (video file)",
+      "Checking the requirement against the sources",
+      "Requirements complete",
+      "14 requirement checks passed"
+    ],
+    "completed_at": 1792303810.9337783,
+    "duration_secs": 1691.2,
+    "total_secs": 1691.2
+  },
+  "PIR": {
+    "enabled": true,
+    "completed": true,
+    "started_at": 1792303948.8140495,
+    "status": "completed",
+    "buttons": {
+      "GeneratePIR": {
+        "enabled": false,
+        "completed": true
+      },
+      "StopPIR": {
+        "enabled": false,
+        "completed": false
+      }
+    },
+    "chat_history": [
+      {
+        "type": "buttons",
+        "buttons": {
+          "GeneratePIR": {
+            "enabled": false,
+            "completed": true
+          },
+          "StopPIR": {
+            "enabled": false,
+            "completed": false
+          }
+        }
+      }
+    ],
+    "task_history": [
+      {
+        "task": "Starting PIR",
+        "completed": true
+      },
+      {
+        "task": "Reading missing source and model details",
+        "completed": true
+      },
+      {
+        "task": "Generating the pipeline graph",
+        "completed": true
+      }
+    ],
+    "PipelineIR": {
+      "connections": [
+        [
+          "p01o",
+          "p02i"
+        ],
+        [
+          "p02o",
+          "p03i"
+        ],
+        [
+          "p03o",
+          "p04i"
+        ],
+        [
+          "p02g",
+          "p04g"
+        ],
+        [
+          "p04o",
+          "p05i"
+        ],
+        [
+          "p05o",
+          "p06i"
+        ],
+        [
+          "p01m",
+          "p06m"
+        ],
+        [
+          "p06e",
+          "p07i"
+        ],
+        [
+          "p06e",
+          "p08i"
+        ],
+        [
+          "p01o",
+          "p09i"
+        ],
+        [
+          "p06s",
+          "p09s"
+        ]
+      ],
+      "nodes": [
+        {
+          "description": "Read every video frame and emit its timing metadata.",
+          "id": 1,
+          "name": "file",
+          "ports": [
+            {
+              "direction": "output",
+              "format": {
+                "color": "BGR",
+                "encoding": "raw"
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p01o",
+              "tensor": {
+                "dtype": "uint8",
+                "shape": [
+                  1080,
+                  2116,
+                  3
+                ]
+              }
+            },
+            {
+              "direction": "output",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p01m",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            }
+          ],
+          "pseudo_code": "import cv2\ncap = cv2.VideoCapture('/home/mageshkumar_sankar/videos/test.mp4')\nif not cap.isOpened():\n    raise FileNotFoundError('/home/mageshkumar_sankar/videos/test.mp4')\nfps = cap.get(cv2.CAP_PROP_FPS) or 30.0\nframe_index = 0\ntry:\n    while True:\n        ok, frame = cap.read()\n        if not ok:\n            break\n        position_ms = cap.get(cv2.CAP_PROP_POS_MSEC)\n        timestamp_s = position_ms / 1000.0 if position_ms > 0 else frame_index / fps\n        metadata = {'frame_index': frame_index, 'timestamp_s': timestamp_s, 'fps': fps, 'width': frame.shape[1], 'height': frame.shape[0]}\n        yield {'p01o': frame, 'p01m': metadata}\n        frame_index += 1\nfinally:\n    cap.release()",
+          "resolution": [
+            2116,
+            1080
+          ],
+          "type": "input",
+          "url": "file:///home/mageshkumar_sankar/videos/test.mp4"
+        },
+        {
+          "color_order": "RGB",
+          "description": "Letterbox each frame and prepare normalized RGB model input.",
+          "id": 2,
+          "mean": null,
+          "normalization": 0.00392156862745098,
+          "offset": null,
+          "pad_value": 114,
+          "ports": [
+            {
+              "direction": "input",
+              "format": {
+                "color": "BGR",
+                "encoding": "raw"
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p02i",
+              "tensor": {
+                "dtype": "uint8",
+                "shape": [
+                  1080,
+                  2116,
+                  3
+                ]
+              }
+            },
+            {
+              "direction": "output",
+              "format": {
+                "color": "RGB",
+                "encoding": "raw"
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p02o",
+              "tensor": {
+                "dtype": "fp32",
+                "shape": [
+                  1,
+                  3,
+                  640,
+                  640
+                ]
+              }
+            },
+            {
+              "direction": "output",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p02g",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            }
+          ],
+          "pseudo_code": "import cv2\nimport numpy as np\norig_h, orig_w = frame.shape[:2]\nr = min(640 / orig_h, 640 / orig_w)\nnew_w, new_h = round(orig_w * r), round(orig_h * r)\nresized = cv2.resize(frame, (new_w, new_h), interpolation=cv2.INTER_LINEAR)\ncanvas = np.full((640, 640, 3), 114, dtype=np.uint8)\npad_x, pad_y = (640 - new_w) // 2, (640 - new_h) // 2\ncanvas[pad_y:pad_y + new_h, pad_x:pad_x + new_w] = resized\nblob = cv2.cvtColor(canvas, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0\nblob = np.ascontiguousarray(np.transpose(blob, (2, 0, 1))[None])\ngeometry = {'orig_h': orig_h, 'orig_w': orig_w, 'ratio': r, 'pad_x': pad_x, 'pad_y': pad_y}\nreturn {'p02o': blob, 'p02g': geometry}",
+          "resize": [
+            640,
+            640
+          ],
+          "resize_mode": "letterbox",
+          "scale": 0.00392156862745098,
+          "std": null,
+          "type": "preprocess"
+        },
+        {
+          "batchSize": 1,
+          "description": "Run the selected YOLO11s detector on each frame.",
+          "id": 3,
+          "layout": "NCHW",
+          "model": {
+            "inputs": [
+              {
+                "dtype": "fp32",
+                "name": "images",
+                "shape": [
+                  1,
+                  3,
+                  640,
+                  640
+                ]
+              }
+            ],
+            "name": "YOLO11s COCO person detector",
+            "outputs": [
+              {
+                "dtype": "fp32",
+                "name": "output0",
+                "shape": [
+                  1,
+                  84,
+                  8400
+                ]
+              }
+            ],
+            "parameter_count": 9485791,
+            "type": "engine",
+            "url": "/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/model_stage/yolo11s.fp32.plan",
+            "source_onnx": "/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/src1/RestrictedAreaMonitoring/model/yolo11s.onnx"
+          },
+          "ports": [
+            {
+              "direction": "input",
+              "format": {
+                "color": "RGB",
+                "encoding": "raw"
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p03i",
+              "tensor": {
+                "dtype": "fp32",
+                "shape": [
+                  1,
+                  3,
+                  640,
+                  640
+                ]
+              }
+            },
+            {
+              "direction": "output",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p03o",
+              "tensor": {
+                "dtype": "fp32",
+                "shape": [
+                  1,
+                  84,
+                  8400
+                ]
+              }
+            }
+          ],
+          "pseudo_code": "import onnxruntime as ort\n# Initialize the session once for this node, then reuse it for every invocation.\nif not hasattr(self, 'session'):\n    self.session = ort.InferenceSession('/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/src1/RestrictedAreaMonitoring/model/yolo11s.onnx', providers=ort.get_available_providers())\nraw = self.session.run(['output0'], {'images': blob})[0]\nreturn {'p03o': raw}",
+          "type": "inference"
+        },
+        {
+          "description": "Decode person boxes while retaining low scores for ByteTrack.",
+          "id": 4,
+          "label_file_path": null,
+          "num_classes": 80,
+          "ports": [
+            {
+              "direction": "input",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p04i",
+              "tensor": {
+                "dtype": "fp32",
+                "shape": [
+                  1,
+                  84,
+                  8400
+                ]
+              }
+            },
+            {
+              "direction": "input",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p04g",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            },
+            {
+              "direction": "output",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p04o",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            }
+          ],
+          "pseudo_code": "import cv2\nimport numpy as np\n# The source's person-detection confidence is 0.35. ByteTrack also needs\n# lower-scoring person candidates for its second association pass.\npreds = np.squeeze(raw, 0).T\nboxes_xywh, scores = preds[:, :4], preds[:, 4:]\nclass_ids = np.argmax(scores, axis=1)\nconfidences = scores[np.arange(scores.shape[0]), class_ids]\nkeep = (class_ids == 0) & (confidences >= 0.10)\nboxes_xywh, confidences = boxes_xywh[keep], confidences[keep]\nhigh, low = [], []\nif len(boxes_xywh):\n    cx, cy, w, h = boxes_xywh.T\n    ratio, pad_x, pad_y = geometry['ratio'], geometry['pad_x'], geometry['pad_y']\n    x1 = np.clip((cx - w / 2 - pad_x) / ratio, 0, geometry['orig_w'])\n    y1 = np.clip((cy - h / 2 - pad_y) / ratio, 0, geometry['orig_h'])\n    x2 = np.clip((cx + w / 2 - pad_x) / ratio, 0, geometry['orig_w'])\n    y2 = np.clip((cy + h / 2 - pad_y) / ratio, 0, geometry['orig_h'])\n    rects = np.stack([x1, y1, x2 - x1, y2 - y1], axis=1)\n    keep_idx = cv2.dnn.NMSBoxes(rects.tolist(), confidences.tolist(), 0.10, 0.45)\n    keep_idx = np.array(keep_idx).flatten() if len(keep_idx) else []\n    for i in keep_idx:\n        if x2[i] <= x1[i] or y2[i] <= y1[i]:\n            continue\n        det = {'box': [float(x1[i]), float(y1[i]), float(x2[i]), float(y2[i])], 'score': float(confidences[i]), 'class': 'person'}\n        (high if det['score'] >= 0.35 else low).append(det)\nreturn {'p04o': {'detections': high, 'low_confidence': low}}",
+          "task": "detection",
+          "threshold": 0.35,
+          "top_items": null,
+          "type": "postprocess"
+        },
+        {
+          "category": "tracking",
+          "description": "Maintain person identities using two-stage ByteTrack detection association.",
+          "external_assets": [],
+          "id": 5,
+          "inputs": [
+            "person detections with high- and low-confidence groups"
+          ],
+          "name": "person tracking",
+          "outputs": [
+            "currently observed person tracks"
+          ],
+          "parameters": {
+            "high_confidence": 0.35,
+            "low_confidence": 0.1,
+            "match_iou": 0.3,
+            "max_age_frames": 15,
+            "method": "ByteTrack",
+            "new_track_confidence": 0.35
+          },
+          "placement": {
+            "attach_point": null,
+            "position": "post_nn"
+          },
+          "ports": [
+            {
+              "direction": "input",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p05i",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            },
+            {
+              "direction": "output",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p05o",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            }
+          ],
+          "pseudo_code": "import numpy as np\nfrom scipy.optimize import linear_sum_assignment\n\ndef measurement(box):\n    x1, y1, x2, y2 = box\n    h = max(1.0, y2-y1)\n    return np.array([(x1+x2)/2, (y1+y2)/2, (x2-x1)/h, h], dtype=float)\n\ndef to_box(mean):\n    cx, cy, aspect, h = mean[:4]\n    h = max(1.0, h)\n    w = max(1.0, aspect*h)\n    return [cx-w/2, cy-h/2, cx+w/2, cy+h/2]\n\ndef noises(h):\n    h = max(1.0, h)\n    return np.array([h/20, h/20, 0.01, h/20, h/160, h/160, 0.0001, h/160])\n\ndef initiate(det, track_id):\n    z = measurement(det['box'])\n    mean = np.r_[z, np.zeros(4)]\n    sd = noises(z[3]) * np.array([2, 2, 1, 2, 10, 10, 1, 10])\n    return {'id': track_id, 'mean': mean, 'cov': np.diag(sd**2), 'box': list(det['box']), 'score': det['score'], 'misses': 0, 'hits': 1, 'trail': [((det['box'][0]+det['box'][2])/2, (det['box'][1]+det['box'][3])/2)]}\n\ndef predict(track):\n    F = np.eye(8)\n    for k in range(4):\n        F[k, k+4] = 1.0\n    sd = noises(track['mean'][3])\n    track['mean'] = F @ track['mean']\n    track['cov'] = F @ track['cov'] @ F.T + np.diag(sd**2)\n    track['box'] = to_box(track['mean'])\n\ndef correct(track, det):\n    H = np.eye(4, 8)\n    z = measurement(det['box'])\n    h = max(1.0, track['mean'][3])\n    R = np.diag(np.array([h/20, h/20, 0.1, h/20])**2)\n    P = track['cov']\n    S = H @ P @ H.T + R\n    K = np.linalg.solve(S, H @ P).T\n    innovation = z - H @ track['mean']\n    track['mean'] = track['mean'] + K @ innovation\n    track['cov'] = (np.eye(8)-K@H) @ P @ (np.eye(8)-K@H).T + K@R@K.T\n    track['box'] = list(det['box'])\n    track['score'] = det['score']\n    track['misses'] = 0\n    track['hits'] += 1\n    b = track['box']\n    track['trail'] = (track['trail'] + [((b[0]+b[2])/2, (b[1]+b[3])/2)])[-30:]\n\ndef iou(a, b):\n    ix = max(0.0, min(a[2], b[2])-max(a[0], b[0]))\n    iy = max(0.0, min(a[3], b[3])-max(a[1], b[1]))\n    union = max(0.0, a[2]-a[0])*max(0.0, a[3]-a[1]) + max(0.0, b[2]-b[0])*max(0.0, b[3]-b[1]) - ix*iy\n    return ix*iy/union if union > 0 else 0.0\n\ndef associate(pool, detections, minimum_iou):\n    if not pool or not detections:\n        return [], list(range(len(pool))), list(range(len(detections)))\n    similarities = np.array([[iou(t['box'], d['box']) for d in detections] for t in pool])\n    rows, cols = linear_sum_assignment(1.0-similarities)\n    pairs = [(int(r), int(c)) for r, c in zip(rows, cols) if similarities[r, c] >= minimum_iou]\n    used_rows = {r for r, _ in pairs}\n    used_cols = {c for _, c in pairs}\n    return pairs, [i for i in range(len(pool)) if i not in used_rows], [j for j in range(len(detections)) if j not in used_cols]\n\n# Persistent node state; only tracks updated by an observation are emitted.\nif not hasattr(self, 'tracks'):\n    self.tracks, self.next_id = [], 1\nhigh = detection_groups['detections']\nlow = detection_groups['low_confidence']\nfor track in self.tracks:\n    predict(track)\n    track['was_observed'] = track['misses'] == 0\npairs, unmatched, new_high = associate(self.tracks, high, 0.3)\nupdated = []\nfor ti, di in pairs:\n    correct(self.tracks[ti], high[di])\n    updated.append(self.tracks[ti])\n# Low-confidence detections can recover unmatched, previously observed\n# tracks, but cannot start a new ID or revive an already-lost track.\nsecond_pool = [self.tracks[i] for i in unmatched if self.tracks[i]['was_observed']]\nlow_pairs, _, _ = associate(second_pool, low, 0.3)\nfor ti, di in low_pairs:\n    correct(second_pool[ti], low[di])\n    updated.append(second_pool[ti])\nupdated_ids = {t['id'] for t in updated}\nfor track in self.tracks:\n    if track['id'] not in updated_ids:\n        track['misses'] += 1\nfor di in new_high:\n    if high[di]['score'] >= 0.35:\n        track = initiate(high[di], self.next_id)\n        self.next_id += 1\n        self.tracks.append(track)\n        updated.append(track)\nself.tracks = [t for t in self.tracks if t['misses'] <= 15]\nobserved = [{'id': t['id'], 'box': list(t['box']), 'score': float(t['score']), 'class': 'person', 'trail': list(t['trail'])} for t in updated]\nreturn {'p05o': observed}",
+          "reference_path": null,
+          "runs_every_frame": true,
+          "state_key": "global",
+          "triggers": [],
+          "type": "custom"
+        },
+        {
+          "category": "gating",
+          "description": "Emit entry events from observed tracked feet crossing inside.",
+          "external_assets": [],
+          "id": 6,
+          "inputs": [
+            "currently observed person tracks",
+            "source timing and frame dimensions"
+          ],
+          "name": "hazard-zone entry alert",
+          "outputs": [
+            "hazard-zone entry events",
+            "current display state"
+          ],
+          "parameters": {
+            "frame_size_px": [
+              2116,
+              1080
+            ],
+            "method": "Tracked-person hazard-zone entry rule",
+            "polygon_vertices_px_clockwise_from_botto": [
+              [
+                528,
+                792
+              ],
+              [
+                752,
+                426
+              ],
+              [
+                1673,
+                480
+              ],
+              [
+                1707,
+                885
+              ]
+            ],
+            "reference_point": "feet (bottom-center of bounding box)",
+            "rules": [
+              {
+                "name": "Outside-to-inside transition"
+              }
+            ],
+            "zone_id": "hazard_zone_1"
+          },
+          "placement": {
+            "attach_point": null,
+            "position": "post_tracker"
+          },
+          "ports": [
+            {
+              "direction": "input",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p06i",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            },
+            {
+              "direction": "input",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p06m",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            },
+            {
+              "direction": "output",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p06e",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            },
+            {
+              "direction": "output",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p06s",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            }
+          ],
+          "pseudo_code": "import cv2\nimport numpy as np\nif not hasattr(self, 'inside_by_id'):\n    self.inside_by_id = {}\n    self.entry_total = 0\nbase = self.parameters['polygon_vertices_px_clockwise_from_botto']\nbase_w, base_h = self.parameters['frame_size_px']\nzone_id = self.parameters['zone_id']\npolygon = [[float(x)*source_metadata['width']/base_w, float(y)*source_metadata['height']/base_h] for x, y in base]\ncontour = np.array(polygon, dtype=np.float32)\nevents = []\ndisplay_tracks = []\nfor track in observed_tracks:\n    x1, y1, x2, y2 = track['box']\n    feet = ((x1+x2)/2.0, y2)\n    inside = cv2.pointPolygonTest(contour, feet, False) >= 0\n    person_id = track['id']\n    previously_inside = self.inside_by_id.get(person_id, False)\n    if inside and not previously_inside:\n        event = {'timestamp_s': source_metadata['timestamp_s'], 'person_id': person_id, 'zone_id': zone_id}\n        events.append(event)\n        self.entry_total += 1\n    self.inside_by_id[person_id] = inside\n    display_tracks.append({'id': person_id, 'box': track['box'], 'score': track['score'], 'trail': track['trail'], 'inside': inside})\n# Retained but unobserved tracker IDs are not counted or tested as new\n# observations. Their last membership remains available on reacquisition.\nstate = {'polygon': polygon, 'tracks': display_tracks, 'current_person_count': len(display_tracks), 'current_inside_count': sum(int(t['inside']) for t in display_tracks), 'entry_total': self.entry_total}\nreturn {'p06e': events, 'p06s': state}",
+          "reference_path": null,
+          "runs_every_frame": true,
+          "state_key": "track_id",
+          "triggers": [],
+          "type": "custom"
+        },
+        {
+          "description": "Persist every hazard entry event in a JSON log.",
+          "grid": null,
+          "id": 7,
+          "name": "json",
+          "output_type": "single",
+          "ports": [
+            {
+              "direction": "input",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p07i",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            }
+          ],
+          "pseudo_code": "import json\nfrom pathlib import Path\npath = Path('/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json')\nif not hasattr(self, 'events'):\n    self.events = []\n    path.parent.mkdir(parents=True, exist_ok=True)\nself.events.extend(events)\n# A valid JSON array exists even if this frame has no entry event.\nwith path.open('w', encoding='utf-8') as stream:\n    json.dump(self.events, stream, ensure_ascii=False)\n    stream.flush()",
+          "resolution": null,
+          "type": "output",
+          "url": "file:///home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json"
+        },
+        {
+          "description": "Publish each logged hazard entry event to MQTT.",
+          "grid": null,
+          "id": 8,
+          "name": "mqtt",
+          "output_type": "single",
+          "ports": [
+            {
+              "direction": "input",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p08i",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            }
+          ],
+          "pseudo_code": "import json\nimport paho.mqtt.client as mqtt\nif not hasattr(self, 'client'):\n    self.client = mqtt.Client()\n    self.client.connect('localhost', 1883, 60)\n    self.client.loop_start()\nfor event in events:\n    self.client.publish('hazard/alerts', json.dumps(event, ensure_ascii=False), qos=0)",
+          "resolution": null,
+          "type": "output",
+          "url": "mqtt://localhost:1883/hazard/alerts"
+        },
+        {
+          "description": "Display annotated original frames, identities, zone, and counts.",
+          "grid": null,
+          "id": 9,
+          "name": "display",
+          "output_type": "single",
+          "ports": [
+            {
+              "direction": "input",
+              "format": {
+                "color": "BGR",
+                "encoding": "raw"
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p09i",
+              "tensor": {
+                "dtype": "uint8",
+                "shape": [
+                  1080,
+                  2116,
+                  3
+                ]
+              }
+            },
+            {
+              "direction": "input",
+              "format": {
+                "color": null,
+                "encoding": null
+              },
+              "framerate": {
+                "denominator": 1,
+                "numerator": 30
+              },
+              "id": "p09s",
+              "tensor": {
+                "dtype": null,
+                "shape": null
+              }
+            }
+          ],
+          "pseudo_code": "import cv2\nimport numpy as np\nout = frame.copy()\nh, w = out.shape[:2]\nscale = w / 1400\nbox_thick = max(2, int(3*scale))\nlabel_scale = max(0.8, 1.1*scale)\nlabel_thick = max(1, int(2*scale))\ncv2.polylines(out, [np.array(display_state['polygon'], dtype=np.int32)], True, (0, 0, 255), max(2, int(4*scale)))\nfor track in display_state['tracks']:\n    color = (0, 0, 255) if track['inside'] else (0, 200, 0)\n    x1, y1, x2, y2 = map(int, track['box'])\n    cv2.rectangle(out, (x1, y1), (x2, y2), color, box_thick)\n    trail = [(int(x), int(y)) for x, y in track['trail']]\n    for i in range(1, len(trail)):\n        cv2.line(out, trail[i-1], trail[i], color, max(1, box_thick//2))\n    label = f\"ID {track['id']}  \" + ('IN ZONE' if track['inside'] else 'CLEAR')\n    (tw, th), baseline = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, label_scale, label_thick)\n    label_y = max(th+baseline+8, y1)\n    cv2.rectangle(out, (x1, label_y-th-baseline-8), (x1+tw+12, label_y), color, -1)\n    cv2.putText(out, label, (x1+6, label_y-baseline-3), cv2.FONT_HERSHEY_SIMPLEX, label_scale, (0, 0, 0), label_thick, cv2.LINE_AA)\nbanner = f\"PERSONS: {display_state['current_person_count']}   IN ZONE: {display_state['current_inside_count']}   ENTRIES: {display_state['entry_total']}\"\nbanner_scale = max(0.8, 1.1*scale)\nbanner_thick = max(2, int(3*scale))\n(tw, th), baseline = cv2.getTextSize(banner, cv2.FONT_HERSHEY_SIMPLEX, banner_scale, banner_thick)\npad = int(10*scale)+6\ncv2.rectangle(out, (0, 0), (min(w, tw+pad*2), th+baseline+pad*2), (0, 0, 0), -1)\ncolor = (0, 0, 255) if display_state['current_inside_count'] else (0, 255, 0)\ncv2.putText(out, banner, (pad, th+pad), cv2.FONT_HERSHEY_SIMPLEX, banner_scale, color, banner_thick, cv2.LINE_AA)\ncv2.imshow('Hazard Zone Person Entry Detection', out)\ncv2.waitKey(1)",
+          "resolution": [
+            2116,
+            1080
+          ],
+          "type": "output",
+          "url": null
+        }
+      ]
+    },
+    "revision": "8434cfd47df481867cdd2e5c9bb3d57fd1e4ed28ffa567b9bb207e2bd49f074f",
+    "completed_at": 1792304034.542705,
+    "duration_secs": 85.73,
+    "total_secs": 1914.8
+  },
+  "Model": {
+    "enabled": true,
+    "completed": false,
+    "precision": "fp32",
+    "chat_history": [],
+    "total_secs": 2800.63,
+    "started_at": 1792305917.9809089,
+    "status": "running",
+    "log_history": []
+  },
+  "Compiler": {
+    "enabled": false,
+    "completed": false,
+    "chat_history": [
+      {
+        "type": "buttons",
+        "buttons": {
+          "CompilePipeline": {
+            "enabled": false,
+            "completed": false
+          }
+        }
+      },
+      {
+        "type": "message",
+        "role": "assistant",
+        "text": "**Compile Output:**\n```\njobs=['pgie_det', 'tracker', 'zone_render', 'json_sink', 'mqtt_sink']\ncompile=ok  run=ok\n\n[run]\n\n\nPIPELINE READY\nRun with: cd /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/pipeline/deepstream && ./run.sh\n```"
+      },
+      {
+        "type": "buttons",
+        "buttons": {
+          "CompilePipeline": {
+            "enabled": false,
+            "completed": true
+          },
+          "RecompilePipeline": {
+            "enabled": true,
+            "completed": false
+          }
+        }
+      }
+    ],
+    "compile_output": "jobs=['pgie_det', 'tracker', 'zone_render', 'json_sink', 'mqtt_sink']\ncompile=ok  run=ok\n\n[run]\n\n\nPIPELINE READY\nRun with: cd /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/pipeline/deepstream && ./run.sh",
+    "llm_summary": "\u2022 The pipeline is an object-detection and tracking pipeline operating in a single-camera, single-batch configuration (batch=1). It targets a video management system (VMS) setup, exposing a video stream on port 7010 and metadata on port 7002 via `run.vms.sh`.\n\n\u2022 The primary inference plugin is a YOLO11s detection stage configured with a pre-built TensorRT engine at `model_stage/yolo11s.fp32.plan`. It runs in network-mode 0 (full-precision FP32) with input/output tensor shapes and blob names sourced directly from the pipeline intermediate representation (PIR).\n\n\u2022 The model is YOLO11s quantised at FP32 precision, with no INT8 or FP16 quantisation applied. Input normalisation uses a net-scale factor of 0.00392157 (i.e., 1/255), with no per-channel mean offsets and BGR colour ordering (color=0).\n\n\u2022 Preprocessing is configured for a single camera with pixel values scaled by 0.00392157 and no additive offset corrections. No explicit input resolution override is logged for the detection stage, with dimensions deferred to the PIR-defined infer-dims.\n\n\u2022 Postprocessing details include a minimum confidence threshold of 0.0 as passed to the JSON metadata output, with the YOLO parser generated via `config_det_pgie_parser.cpp`. The label file `config_det_pgie_labels.txt` contains 80 class names, consistent with a COCO-trained model.\n\n\u2022 The tracker plugin uses NvSORT configured at a resolution of 960\u00d7544 pixels, with tracking IDs enabled for display (`display-tracking-id=1`). Its configuration is written to `config_tracker.yml`.\n\n\u2022 A custom rendering plugin is generated as `libzone_render_process.so`, compiled from `zone_render_process.cpp` and `render_meta.h`. This plugin performs zone-based overlay rendering and is not bound to a specific GIE inference ID (`operate_on_gie_id=None`).\n\n\u2022 Two shared library plugins handle metadata egress: `libmeta_json.so` (compiled from `meta_json.cpp`, `frame_json.h`, and `render_meta.h`) writes frame-level detections to `output/metadata.json`, and `libmqtt_publish.so` (compiled from `mqtt_publish.cpp`) publishes frame payloads to the MQTT topic `hazard/alerts` on broker `localhost:1883` at QoS 0.\n\n\u2022 Configuration artifacts produced include `config_det_pgie.txt` (detector plugin config), `config_tracker.yml` (tracker config), `config_det_pgie_labels.txt` (80-class label file), `config_det_pgie_parser.cpp` (custom parser source), and `run.vms.sh` (VMS launch script). A `run.debug.sh` script was also generated and executed during the verification phase.\n\n\u2022 The Makefile executed a forced rebuild (`make -B -C parsers`) of the parsers directory, linking against DeepStream, CUDA, and supporting libraries including yaml-cpp (evidenced by the tracker YAML config). The build targets the `parsers/` subdirectory and completed with `[compile] SUCCESS`.\n\n\u2022 A notable warning was raised for the MQTT plugin: the configured broker (`localhost:1883`) is local-only, meaning no external network clients will receive published messages. The log explicitly instructs setting `MQTT_HOST` in `run.sh` and starting the bundled Mosquitto broker via `/usr/local/sbin/mosquitto -p 1883 &` before execution.\n\n\u2022 Compilation completed successfully following a headless instrumented verification run of approximately 8 seconds with content probing (dump and luma-variance check) confirming valid frame output. The pipeline can be launched by executing `./run.vms.sh`, which brings up the video stream on port 7010 and the metadata stream on port 7002.",
+    "total_secs": 2886.36
+  },
+  "Run": {
+    "enabled": false,
+    "completed": true,
+    "total_secs": 16232.54,
+    "succeeded": true,
+    "started_at": 1792302119.738775,
+    "completed_at": 1792318352.2820883,
+    "duration_secs": 16232.54,
+    "chat_history": [
+      {
+        "type": "message",
+        "role": "assistant",
+        "text": "Pipeline run completed."
+      },
+      {
+        "type": "collapsible",
+        "header": "Run Summary",
+        "content": "\u2022 The pipeline ran to completion and reached EOS cleanly with no fatal errors; however, repeated GStreamer WARNING messages from `eglglessink0` (via `fpsdisplaysink0`) indicate persistent buffer-dropping throughout the entire ~18-second run.\n\n\u2022 MQTT throughput was stable, publishing all 301 frames with 589 total objects detected; per-interval message rates ranged from ~12.7 msg/s to ~20.2 msg/s, averaging roughly 15\u201316 msg/s across the run.\n\n\u2022 No explicit per-element latency trace numbers were captured in this report; however, the recurrent `gst_base_sink_is_too_late` warnings from `eglglessink0` identify the display sink as the clear rendering bottleneck, unable to keep pace with upstream frame production.\n\n\u2022 The `nvinferbackport0` element loaded a pre-serialized TensorRT engine (`yolo11s.fp32.plan`) successfully at startup, so inference deserialization added ~70 ms of one-time preroll overhead but is not a steady-state bottleneck.\n\n\u2022 Total pipeline execution time was 18.21 seconds for 301 frames, implying an effective end-to-end processing rate of approximately 16.5 FPS \u2014 consistent with the MQTT publish rate but suggesting the display sink is the component failing to render at that pace.\n\n\u2022 `GstEglGlesSink` (`eglglessink0`) is the standout problem element, generating at least 14 separate \"A lot of buffers are being dropped\" warnings, likely due to running on a system without a proper hardware display or GPU-accelerated EGL context (`display=(GstEGLDisplay)NULL` was logged at preroll).\n\n\u2022 The `fp32` precision of the TRT engine (`yolo11s.fp32.plan`) leaves performance on the table; converting to FP16 or INT8 would reduce inference time and ease overall pipeline pressure.\n\n\u2022 Practical recommendation: replace `eglglessink0` with a headless sink such as `fakesink` or `nvdsosd` \u2192 `filesink` when no physical display is attached; this will eliminate the buffer-drop warnings and remove the display-rendering bottleneck entirely, likely improving stable throughput above the current ~16.5 FPS.",
+        "kind": "summary"
+      }
+    ]
+  },
+  "project_name": "Hazard Zone Person Entry Detection"
+}

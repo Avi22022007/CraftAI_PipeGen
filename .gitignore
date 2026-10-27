@@ -1,0 +1,5 @@
+UserInfo.json
+.cache/
+pipeline/deepstream/.verify_frames/
+*:Zone.Identifier
+model_stage/yolo11s.fp32.plan.key

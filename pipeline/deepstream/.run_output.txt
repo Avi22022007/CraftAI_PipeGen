@@ -1,0 +1,164 @@
+
+  ── Publishing detections over MQTT ──────────────────────────
+  Broker : localhost:1883
+  Topic  : hazard/alerts
+
+  To CHECK messages are arriving — start it BEFORE the pipeline,
+  because messages sent while nobody is listening are discarded,
+  not queued.
+
+  From this machine (nothing to install):
+      docker run --rm --network host --entrypoint mosquitto_sub craftifaidocker/deepstream:7.1-amd64-v3 -h localhost -p 1883 -t 'hazard/alerts' -v
+
+  From any machine that has the mosquitto clients installed:
+      mosquitto_sub -h localhost -p 1883 -t 'hazard/alerts' -v
+
+  To USE it, subscribe to that topic from your own program. One
+  JSON message per frame: frame number, camera id, timestamp, and
+  a list of objects — each with a label, a tracking id that
+  follows it between frames, a confidence and a bounding box.
+
+  Change the broker without rebuilding:
+      MQTT_HOST=10.0.0.9 ./run.sh
+  ─────────────────────────────────────────────────────────────
+
+[run.sh] JSON -> /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json
+make: Entering directory '/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/pipeline/deepstream/parsers'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/pipeline/deepstream/parsers'
+Setting pipeline to PAUSED ...
+gstnvtracker: Loading low-level lib at /opt/nvidia/deepstream/deepstream/lib/libnvds_nvmultiobjecttracker.so
+[NvMultiObjectTracker] Initialized
+0:00:04.685966096 [36m 1325[00m 0x63beeb5b7ec0 [36mINFO   [00m [00m    nvinfer_backport gstnvinfer.cpp:684:gst_nvinfer_backport_logger:<nvinferbackport0>[00m NvDsInferContext[UID 1]: Info from NvDsInferContextImpl::deserializeEngineAndBackend() <nvdsinfer_context_impl.cpp:2161> [UID = 1]: deserialized trt engine from :/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/model_stage/yolo11s.fp32.plan
+0:00:04.687192569 [36m 1325[00m 0x63beeb5b7ec0 [36mINFO   [00m [00m    nvinfer_backport gstnvinfer.cpp:684:gst_nvinfer_backport_logger:<nvinferbackport0>[00m NvDsInferContext[UID 1]: Info from NvDsInferContextImpl::generateBackendContext() <nvdsinfer_context_impl.cpp:2264> [UID = 1]: Use deserialized engine model: /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/model_stage/yolo11s.fp32.plan
+0:00:04.754306563 [36m 1325[00m 0x63beeb5b7ec0 [36mINFO   [00m [00m    nvinfer_backport gstnvinfer_impl.cpp:343:notifyLoadModelStatus:<nvinferbackport0>[00m [UID 1]: Load new model:/home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/pipeline/deepstream/configs/config_det_pgie.txt sucessfully
+Implicit layer support has been deprecated
+INFO: [Implicit Engine Info]: layers num: 0
+
+Pipeline is PREROLLING ...
+Got context from element 'eglglessink0': gst.egl.EGLDisplay=context, display=(GstEGLDisplay)NULL;
+Failed to query video capabilities: Inappropriate ioctl for device
+[ParseConfigDetPgie] first call: layer=output0 numDims=2 networkInput=640x640 numClasses=80 outputs=1
+[meta_json] file -> /home/mageshkumar_sankar/.pipegen/mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1/output/metadata.json
+[mqtt] connected
+[mqtt] publishing to localhost:1883 topic 'hazard/alerts' qos 0, per-frame payloads
+Pipeline is PREROLLED ...
+Setting pipeline to PLAYING ...
+Redistribute latency...
+New clock: GstSystemClock
+Redistribute latency...
+[mqtt]           10 frames       14 objects      10 published   13.3 msg/s    0.8s
+[mqtt]           17 frames       23 objects      17 published   12.7 msg/s    1.3s
+[mqtt]           25 frames       31 objects      25 published   15.3 msg/s    1.8s
+[mqtt]           32 frames       38 objects      32 published   13.8 msg/s    2.3s
+[mqtt]           41 frames       47 objects      41 published   17.2 msg/s    2.9s
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+[mqtt]           49 frames       55 objects      49 published   15.7 msg/s    3.4s
+[mqtt]           58 frames       67 objects      58 published   17.4 msg/s    3.9s
+[mqtt]           65 frames       82 objects      65 published   13.6 msg/s    4.4s
+[mqtt]           73 frames      101 objects      73 published   14.1 msg/s    5.0s
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+[mqtt]           81 frames      117 objects      81 published   15.9 msg/s    5.5s
+[mqtt]           89 frames      133 objects      89 published   15.7 msg/s    6.0s
+[mqtt]           98 frames      151 objects      98 published   15.8 msg/s    6.5s
+[mqtt]          107 frames      169 objects     107 published   16.2 msg/s    7.1s
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+[mqtt]          115 frames      185 objects     115 published   14.0 msg/s    7.7s
+[mqtt]          124 frames      203 objects     124 published   17.7 msg/s    8.2s
+[mqtt]          133 frames      221 objects     133 published   16.7 msg/s    8.7s
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+[mqtt]          141 frames      237 objects     141 published   15.7 msg/s    9.2s
+[mqtt]          149 frames      253 objects     149 published   15.8 msg/s    9.7s
+[mqtt]          158 frames      268 objects     158 published   17.0 msg/s   10.3s
+[mqtt]          167 frames      285 objects     167 published   17.3 msg/s   10.8s
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+[mqtt]          176 frames      302 objects     176 published   16.5 msg/s   11.3s
+[mqtt]          186 frames      322 objects     186 published   17.7 msg/s   11.9s
+[mqtt]          194 frames      338 objects     194 published   14.4 msg/s   12.5s
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+[mqtt]          203 frames      356 objects     203 published   17.2 msg/s   13.0s
+[mqtt]          212 frames      374 objects     212 published   16.6 msg/s   13.5s
+[mqtt]          221 frames      392 objects     221 published   17.2 msg/s   14.0s
+[mqtt]          230 frames      412 objects     230 published   15.8 msg/s   14.6s
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+[mqtt]          239 frames      439 objects     239 published   16.5 msg/s   15.2s
+[mqtt]          249 frames      469 objects     249 published   18.3 msg/s   15.7s
+[mqtt]          258 frames      496 objects     258 published   17.2 msg/s   16.2s
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+[mqtt]          267 frames      521 objects     267 published   15.7 msg/s   16.8s
+[mqtt]          276 frames      539 objects     276 published   16.7 msg/s   17.3s
+[mqtt]          287 frames      561 objects     287 published   20.2 msg/s   17.9s
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+WARNING: from element /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0: A lot of buffers are being dropped.
+Additional debug info:
+../libs/gst/base/gstbasesink.c(3143): gst_base_sink_is_too_late (): /GstPipeline:pipeline0/GstFPSDisplaySink:fpsdisplaysink0/GstEglGlesSink:eglglessink0:
+There may be a timestamping problem, or this computer is too slow.
+[mqtt]          296 frames      579 objects     296 published   16.9 msg/s   18.4s
+nvstreammux: Successfully handled EOS for source_id=0
+Got EOS from element "pipeline0".
+EOS received - stopping pipeline...
+Execution ended after 0:00:18.213662898
+Setting pipeline to NULL ...
+Freeing pipeline ...
+[NvMultiObjectTracker] De-initialized
+[meta_json] 301 frames, 589 objects
+[mqtt] done     301 frames      589 objects     301 published    7.9 msg/s   19.1s

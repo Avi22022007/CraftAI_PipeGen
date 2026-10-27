@@ -1,0 +1,24 @@
+# PipeGen model stage — mageshkavi05/d4c24160-a5b9-4b8a-a882-cf6433630fa1
+# UTC                   step             outcome  fact
+2026-10-18T06:15:34Z  visualize        start    Checking every node against the TensorRT parser…
+2026-10-18T06:15:56Z  visualize        ok       321 nodes · 0 unresolved
+2026-10-18T06:16:36Z  compile          start    Compiling the model with TensorRT at FP32…
+2026-10-18T06:16:52Z  visualize        ok       321 nodes · 0 unresolved
+2026-10-18T06:17:22Z  choice           user     selected_artifact=baseline
+2026-10-18T06:17:22Z  choice           user     optimization_decision=
+2026-10-18T06:17:22Z  compile          warning  fp32 · 234 TRT layers · 49.2 MB
+2026-10-18T06:19:07Z  benchmark        start    Benchmarking the compiled engine on this device…
+2026-10-18T06:19:17Z  engine           ok       31.807 ms mean
+2026-10-18T06:21:30Z  accuracy         start    Scoring the engine against this task's labelled test folder — downloading it if this is the first run…
+2026-10-18T06:23:51Z  accuracy         ok       source=dataset · 30 samples · mAP50=0.4782
+2026-10-18T06:25:18Z  quantize_prepare start    Resolving this model's calibration path from PipelineIR…
+2026-10-18T06:23:35Z  choice           user     optimization_decision=preparing
+2026-10-18T06:28:30Z  choice           user     selected_artifact=baseline
+2026-10-18T06:28:30Z  choice           user     optimization_decision=kept
+2026-10-18T06:45:31Z  compile          start    Compiling the model with TensorRT at FP32…
+2026-10-18T06:45:56Z  visualize        ok       321 nodes · 0 unresolved
+2026-10-18T06:45:59Z  choice           user     selected_artifact=baseline
+2026-10-18T06:45:59Z  choice           user     optimization_decision=
+2026-10-18T06:45:59Z  compile          ok       fp32 · 234 TRT layers · 49.2 MB · from cache
+2026-10-18T06:46:12Z  benchmark        start    Benchmarking the compiled engine on this device…
+2026-10-18T06:46:21Z  engine           ok       33.720 ms mean

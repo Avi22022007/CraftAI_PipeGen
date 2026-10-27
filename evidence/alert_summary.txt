@@ -1,0 +1,5 @@
+frames: 301
+object labels: {'bench': 250, 'person': 262, 'tv': 77}
+ENTRY EVENT: frame 104 at 3.53s, person ids [1], entry_total=1
+inside zone: frames 104 to 195 (3.53s to 6.57s), 92 frames
+final entry_total: 1
